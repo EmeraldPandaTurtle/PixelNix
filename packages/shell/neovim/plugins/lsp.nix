@@ -2,11 +2,12 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   plugins = {
     jdtls = {
       settings = {
-        cmd = ["jdtls"];
+        cmd = [ "jdtls" ];
         root_dir = {
           __raw = "  vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1])\n";
         };
@@ -38,7 +39,10 @@
         };
         html.enable = true;
         cssls.enable = true;
+        tailwindcss.enable = true;
         nil_ls.enable = true; # Nix
+        ts_ls.enable = true; # Typescript
+        qmlls.enable = true;
       };
       keymaps = {
         silent = true;

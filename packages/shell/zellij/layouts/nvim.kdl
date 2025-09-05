@@ -24,7 +24,14 @@ layout {
             }
         }
     }
-    tab name="Terminal" focus=true {
+    tab name="Editor" focus=true {
+      pane focus=true { 
+        name "neovim"
+        command "nu" 
+        args "-c" "nu ~/.config/nvim/scripts/nvim.nu"
+      }
+    }
+    tab name="Terminal" {
       pane
     }
 }

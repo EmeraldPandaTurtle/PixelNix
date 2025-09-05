@@ -13,5 +13,5 @@ def main [filepath?, session?] {
 
   $env.ZELLIJ_SESSION = $session
 
-  zellij -s $session
+  zellij -n nvim -s $session
 }

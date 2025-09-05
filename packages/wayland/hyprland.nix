@@ -51,7 +51,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    plugins = [ inputs.hy3.packages.${pkgs.system}.hy3 ];
+    plugins = [ ];
 
     extraConfig = ''
       ${builtins.readFile ./hyprland/hyprland.conf}
@@ -93,7 +93,7 @@
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
 
-        layout = "hy3";
+        layout = "master";
       };
 
       decoration = {
@@ -115,19 +115,15 @@
         "col.inactive" = "rgba(595959aa)";
       };
 
-      plugin = {
-        hy3 = {
-          autotile = {
-            enable = true;
-            ephemeral_groups = true;
-          };
-        };
-      };
-
       dwindle = {
         pseudotile = true;
-        preserve_split = true;
-        smart_split = true;
+      };
+
+      master = {
+        new_status = "slave";
+        mfact = 0.5;
+        allow_small_split = true;
+        new_on_active = "after";
       };
 
       input = {
@@ -182,13 +178,13 @@
 
         "[workspace 4 silent] discord" # Messaging
 
-        "[workspace 3 silent] alacritty" # Terminal
+        "[workspace 3 silent] kitty" # Terminal
 
         "[workspace 2 silent] steam -silent" # Gaming
 
         "[workspace 5 silent] bitwarden" # Password Manager
 
-        "[workspace special silent] alacritty" # Floating Terminal
+        "[workspace special silent] kitty" # Floating Terminal
       ];
 
       bindm = [

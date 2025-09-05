@@ -20,7 +20,10 @@
     multicursors.enable = true;
 
     # Note Taking
-    markview.enable = true;
+    render-markdown.enable = true;
+
+    # Kitty
+    image.enable = true;
 
     # Zellij
     zellij-nav.enable = true;

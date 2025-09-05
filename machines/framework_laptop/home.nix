@@ -19,6 +19,7 @@ in
     # Applications
     (rootPath + /packages/applications/discord.nix) # Chatting
     (rootPath + /packages/applications/alacritty.nix) # Terminal
+    (rootPath + /packages/applications/kitty.nix) # Terminal
     (rootPath + /packages/applications/prismlauncher.nix) # Minecraft
     (rootPath + /packages/applications/feh.nix) # Image Viewer
     (rootPath + /packages/applications/pavu.nix) # Audio Control
@@ -50,20 +51,17 @@ in
     (rootPath + /packages/shell/yazi.nix) # File Explorer
     (rootPath + /packages/shell/xplr.nix) # File Explorer 2.0
     (rootPath + /packages/shell/zellij.nix) # Multiplexer
-    (rootPath + /packages/shell/gemini.nix) # AI
+    (rootPath + /packages/shell/misc.nix)
 
     # Wayland
     (import (rootPath + /packages/wayland/hyprland.nix) {
       envVars = [ ];
     }) # Window Manager
 
-    (import (rootPath + /packages/wayland/eww.nix) {
-      theme = "laptop";
-    }) # Sidebar
-
     (rootPath + /packages/wayland/theme.nix) # Make things pretty
 
-    (rootPath + /packages/wayland/dunst.nix) # Notifications
+    (rootPath + /packages/wayland/quickshell.nix) # Widgets
+
     (rootPath + /packages/wayland/swww.nix) # Wallpaper
 
     (rootPath + /packages/wayland/ranch.nix) # App Launcher

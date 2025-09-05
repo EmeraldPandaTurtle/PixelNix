@@ -15,7 +15,13 @@
     # Misc Language Servers
     vscode-langservers-extracted
 
+    typescript-language-server # Typescript
+
     taplo # TOML
+
+    kdePackages.full
+
+    imagemagick
   ];
 
   xdg.configFile."nvim/scripts" = {
@@ -36,6 +42,8 @@
       ./plugins/lsp.nix
       ./plugins/treesitter.nix
       ./plugins/ui.nix
+      ./plugins/markdown.nix
+      ./plugins/image.nix
     ];
   };
 }

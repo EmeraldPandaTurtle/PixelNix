@@ -147,6 +147,13 @@ entries:
           - !exec alacritty
 
       - !entry
+        icon: ""
+        name: "Kitty"
+        icon_color: magenta
+        events:
+          - !exec kitty
+
+      - !entry
         icon: "P"
         name: "Postman"
         icon_color: red

@@ -23,17 +23,12 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=refs/tags/v0.50.0";
+      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     waybar = {
       url = "github:Alexays/waybar";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hy3 = {
-      url = "github:outfoxxed/hy3?ref=refs/tags/hl0.50.0";
-      inputs.hyprland.follows = "hyprland";
     };
 
     swww.url = "github:LGFae/swww";
@@ -46,6 +41,12 @@
 
     # Framework 16 stuff
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
