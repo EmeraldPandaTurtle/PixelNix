@@ -1,77 +1,86 @@
 import Quickshell
+import Quickshell.Wayland
+
 import QtQuick
+import QtQuick.Layouts
 
-Scope {
-    Variants {
-        model: Quickshell.screens
+PanelWindow {
+    id: root
 
-        PanelWindow {
-            color: "transparent"
+    color: "transparent"
 
-            required property var modelData
-            screen: modelData
+    property var tray
 
-            anchors {
-                bottom: true
-                left: true
-                right: true
+    anchors {
+        bottom: true
+        left: true
+        right: true
+    }
+
+    WlrLayershell.layer: WlrLayer.Top
+
+    implicitHeight: 50
+
+    Rectangle {
+        color: "transparent"
+        anchors.fill: parent
+        anchors.bottomMargin: 5
+        implicitHeight: 40
+
+        Row {
+            id: right
+
+            anchors.right: parent.right
+            anchors.rightMargin: 20
+
+            spacing: 10
+
+            Status {
+                onClicked: root.tray.contentVisible = !root.tray.contentVisible
             }
+            ClockWidget {}
+        }
 
-            implicitHeight: 50
+        Row {
+            id: left
 
-            Rectangle {
-                color: "transparent"
-                anchors.fill: parent
-                anchors.bottomMargin: 5
-                implicitHeight: 40
+            anchors.left: parent.left
+            anchors.leftMargin: 20
 
-                Row {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 20
+            Workspaces {
 
-                    ClockWidget {}
-                }
-
-                Row {
-                    anchors.left: parent.left
-                    anchors.leftMargin: 20
-
-                    Workspaces {
-
-                        workspaces: [
-                            {
-                                icon: "",
-                                id0: 1,
-                                id1: 6
-                            },
-                            {
-                                icon: "",
-                                id0: 2,
-                                id1: 6
-                            },
-                            {
-                                icon: "",
-                                id0: 3,
-                                id1: 6
-                            },
-                            {
-                                icon: "",
-                                id0: 4,
-                                id1: 6
-                            },
-                            {
-                                icon: "",
-                                id0: 5,
-                                id1: 6
-                            },
-                            {
-                                icon: "",
-                                id0: 8,
-                                id1: 9
-                            }
-                        ]
+                workspaces: [
+                    {
+                        icon: "",
+                        id0: 1,
+                        id1: 6
+                    },
+                    {
+                        icon: "",
+                        id0: 2,
+                        id1: 6
+                    },
+                    {
+                        icon: "",
+                        id0: 3,
+                        id1: 6
+                    },
+                    {
+                        icon: "",
+                        id0: 4,
+                        id1: 6
+                    },
+                    {
+                        icon: "",
+                        id0: 5,
+                        id1: 6
+                    },
+                    {
+                        icon: "",
+                        id0: 8,
+                        id1: 9
                     }
-                }
+                ]
             }
         }
     }

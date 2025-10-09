@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   # Document Printing.
   services.printing.enable = true;
 
@@ -22,4 +23,7 @@
 
   # SSH
   services.openssh.enable = true;
+
+  # Power
+  services.upower.enable = true;
 }

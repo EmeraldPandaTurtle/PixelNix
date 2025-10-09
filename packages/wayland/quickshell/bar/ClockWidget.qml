@@ -1,40 +1,51 @@
 import QtQuick
 
 Rectangle {
-    implicitWidth: 110
+    implicitWidth: 130
     implicitHeight: 40
 
-    radius: 5
+    radius: Theme.rounding
 
-    border.width: 1
-    border.color: "#AAAAAA"
+    border.width: Theme.border_width
+    border.color: Theme.border_color
 
     gradient: Theme.background_gradient
 
-    Text {
-        color: Theme.text
-        anchors.right: parent.right
-        anchors.top: parent.top
+    Row {
+        anchors.fill: parent
+        anchors.margins: 5
+        spacing: 15
+        Column {
+            Text {
+                color: Theme.text
 
-        anchors.margins: 2
-        anchors.rightMargin: 4
+                anchors.margins: 2
+                anchors.rightMargin: 4
 
-        font.bold: true
-        font.pixelSize: 18
+                font.family: Theme.font
+                font.bold: true
+                font.pixelSize: 14
 
-        text: Time.time
-    }
+                text: Time.time
+            }
 
-    Text {
-        color: Theme.subtext
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+            Text {
+                color: Theme.subtext
 
-        anchors.margins: 2
-        anchors.rightMargin: 4
+                font.family: Theme.font
+                font.pixelSize: 10
 
-        font.pixelSize: 12
+                text: Time.date
+            }
+        }
 
-        text: Time.date
+        Text {
+            color: Theme.bell
+            anchors.verticalCenter: parent.verticalCenter
+
+            font.family: Theme.font
+            font.pixelSize: 30
+            text: ""
+        }
     }
 }

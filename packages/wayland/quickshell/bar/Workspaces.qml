@@ -7,10 +7,10 @@ Rectangle {
     implicitWidth: 220
     implicitHeight: 40
 
-    radius: 5
+    radius: Theme.rounding
 
-    border.width: 1
-    border.color: "#AAAAAA"
+    border.width: Theme.border_width
+    border.color: Theme.border_color
 
     gradient: Theme.background_gradient
 
@@ -30,19 +30,22 @@ Rectangle {
                 required property var modelData
 
                 width: 35
-                height: 20
+                height: 30
 
-                color: mouseArea.containsMouse ? "#44FFFFFF" : "transparent"
+                anchors.margins: 5
 
                 property bool isActive: root.activeWorkspace?.id === modelData.id0
+
+                color: isActive ? Theme.active_workspace : mouseArea.containsMouse ? Theme.hovered_workspace : Theme.inactive_workspace
 
                 Text {
                     anchors.centerIn: parent
 
-                    color: Theme.inactive_workspace
+                    color: Theme.text
                     text: modelData.icon
+                    font.family: Theme.font
 
-                    font.pixelSize: 20
+                    font.pixelSize: 28
                 }
 
                 MouseArea {

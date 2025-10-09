@@ -26,12 +26,6 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    waybar = {
-      url = "github:Alexays/waybar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    swww.url = "github:LGFae/swww";
 
     ranch.url = "github:TheEmeraldBee/ranch";
     ferrite.url = "github:TheEmeraldBee/ferrite";

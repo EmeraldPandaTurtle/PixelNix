@@ -65,6 +65,12 @@
       ]
       ++ envVars;
 
+      # Layer rules for QuickShell blur
+      layerrule = [
+        "blur, quickshell"
+        "ignorealpha 0.05, quickshell" # Only blur parts with >5% opacity
+      ];
+
       animations = {
         enabled = 1;
         animation = [
@@ -100,11 +106,12 @@
         rounding = 10;
 
         blur = {
-          enabled = false;
+          enabled = true;
           size = 3;
-          passes = 1;
-
-          vibrancy = 0.1696;
+          passes = 2;
+          new_optimizations = true;
+          xray = false; # This makes opaque parts NOT blur
+          ignore_opacity = false;
         };
 
         shadow.enabled = false;
@@ -170,8 +177,7 @@
 
         #
         "hyprctl setcursor Bibata-Modern-Classic 20"
-        "swww-daemon && sleep 5sec && nu ~/dotfiles/scripts/swww-rotate-utils.nu start 5min"
-        "eww daemon && eww open sidebar"
+        "quickshell"
 
         # Start Up Applications that are used everywhere.
         "[workspace 1 silent] zen-beta" # Web-Browser

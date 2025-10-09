@@ -63,8 +63,6 @@ in
 
     (rootPath + /packages/wayland/quickshell.nix) # Widgets
 
-    (rootPath + /packages/wayland/swww.nix) # Wallpaper
-
     (rootPath + /packages/wayland/ranch.nix) # App Launcher
   ];
 }

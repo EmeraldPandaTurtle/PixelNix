@@ -1,7 +1,9 @@
 { pkgs, inputs, ... }:
 {
-  home.packages = [
+  home.packages = with pkgs; [
     inputs.quickshell.packages.${pkgs.system}.default
+
+    upower
   ];
 
   xdg.configFile."quickshell" = {

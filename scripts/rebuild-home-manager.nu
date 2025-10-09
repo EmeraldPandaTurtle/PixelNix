@@ -5,13 +5,4 @@ try {
   exit 1
 }
 
-~/dotfiles/script-bin/sr kill
-swww kill
-
-sleep 500ms
-hyprctl dispatch exec swww-daemon
-sleep 500ms
-
-~/dotfiles/script-bin/sr start 5min
-
 notify-send -u low -e "Home-Manager Configuration Rebuilt Ok!"
