@@ -36,7 +36,7 @@ PanelWindow {
             spacing: 10
 
             Status {
-                onClicked: root.tray.contentVisible = !root.tray.contentVisible
+                onClicked: root.tray.visible = !root.tray.visible
             }
             ClockWidget {}
         }

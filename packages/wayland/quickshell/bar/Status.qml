@@ -1,7 +1,7 @@
 import QtQuick
 
 Rectangle {
-    width: 90
+    width: 150
     height: 40
 
     signal clicked
@@ -19,6 +19,8 @@ Rectangle {
 
         anchors.fill: parent
         Battery {}
+        Volume {}
+        Wifi {}
         Bluetooth {}
     }
 

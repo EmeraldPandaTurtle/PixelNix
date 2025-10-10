@@ -24,7 +24,7 @@ Rectangle {
 
                 font.family: Theme.font
                 font.bold: true
-                font.pixelSize: 14
+                font.pixelSize: Theme.font_size_small
 
                 text: Time.time
             }
@@ -33,7 +33,7 @@ Rectangle {
                 color: Theme.subtext
 
                 font.family: Theme.font
-                font.pixelSize: 10
+                font.pixelSize: Theme.font_size_tiny
 
                 text: Time.date
             }

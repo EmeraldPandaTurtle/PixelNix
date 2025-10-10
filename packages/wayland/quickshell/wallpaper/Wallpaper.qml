@@ -42,11 +42,29 @@ Scope {
                     init();
                 }
 
+                function shuffleArray(array) {
+                    for (var i = array.length - 1; i > 0; i--) {
+                        // Pick a random element before the current one
+                        var j = Math.floor(Math.random() * (i + 1));
+
+                        // Swap the elements
+                        var temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                    }
+                    return array;
+                }
+
                 function init() {
                     wallpaperWindow.wallpapers = [];
                     for (var i = 0; i < count; i++) {
                         wallpaperWindow.wallpapers.push(get(i, "fileURL"));
                     }
+
+                    if (wallpaperWindow.wallpapers.length > 1) {
+                        wallpaperWindow.wallpapers = shuffleArray(wallpaperWindow.wallpapers);
+                    }
+
                     if (wallpaperWindow.wallpapers.length > 0) {
                         wallpaperWindow.currentWallpaper = wallpaperWindow.wallpapers[0];
                     }
@@ -61,7 +79,16 @@ Scope {
             function nextWallpaperCycle() {
                 if (wallpapers.length === 0)
                     return;
-                currentIndex = (currentIndex + 1) % wallpapers.length;
+
+                var nextIndex = (currentIndex + 1);
+
+                if (nextIndex >= wallpapers.length) {
+                    wallpaperWindow.wallpapers = folderModel.shuffleArray(wallpapers);
+                    currentIndex = 0;
+                } else {
+                    currentIndex = nextIndex;
+                }
+
                 changeWallpaper(wallpapers[currentIndex]);
             }
 
@@ -110,7 +137,7 @@ Scope {
             }
 
             Timer {
-                interval: 30000
+                interval: 120000
                 running: true
                 repeat: true
                 onTriggered: wallpaperWindow.nextWallpaperCycle()

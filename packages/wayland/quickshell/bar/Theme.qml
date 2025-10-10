@@ -15,7 +15,11 @@ Singleton {
     // -----------
     // - General -
     // -----------
-    readonly property string font: "Hack Nerd Font Mono"
+    readonly property string font: "GohuFont 11 Nerd Font Mono"
+    readonly property int font_size_big: 30
+    readonly property int font_size_med: 25
+    readonly property int font_size_small: 16
+    readonly property int font_size_tiny: 10
 
     readonly property int rounding: 5
     readonly property int border_width: 1
@@ -33,11 +37,21 @@ Singleton {
     // - Bluetooth -
     // -------------
     readonly property string bluetooth: "#9999FF"
-    readonly property string bluetooth_hover: "#99CCFF"
+
+    // ----------
+    // - Volume -
+    // ----------
+    readonly property string volume: "#99FF99"
+
+    // ----------
+    // - Volume -
+    // ----------
+    readonly property string network: "#60A5FA"
 
     // -------------
     // - WORKSPACE -
     // -------------
+    readonly property int icon_size: 30
     readonly property string inactive_workspace: "transparent"
     readonly property string active_workspace: "#88AA88"
     readonly property string hovered_workspace: "#AAAAAA"

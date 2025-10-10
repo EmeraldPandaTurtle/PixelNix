@@ -8,6 +8,8 @@ PanelWindow {
 
     color: "transparent"
 
+    visible: false
+
     anchors {
         right: true
         top: true
@@ -19,12 +21,10 @@ PanelWindow {
 
     implicitWidth: 515
 
-    property bool contentVisible: false
-
     Rectangle {
         id: content
 
-        x: root.contentVisible ? 0 : width + 15
+        x: root.visible ? 0 : width + 15
 
         Behavior on x {
             NumberAnimation {

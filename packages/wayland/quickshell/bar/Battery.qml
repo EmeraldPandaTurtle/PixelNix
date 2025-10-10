@@ -6,9 +6,9 @@ Row {
     spacing: 3
 
     Text {
-        text: `${UPower.displayDevice.percentage * 100.0}%`
+        text: `${Math.floor(UPower.displayDevice.percentage * 100.0)}%`
 
-        font.pixelSize: 15
+        font.pixelSize: Theme.font_size_small
         font.family: Theme.font
 
         anchors.verticalCenter: parent.verticalCenter
@@ -17,11 +17,11 @@ Row {
     }
 
     Text {
-        text: UPower.onBattery ? "" : "󱐋"
+        text: UPower.onBattery ? "󱊢" : ""
 
         font.family: Theme.font
         font.bold: true
-        font.pixelSize: 20
+        font.pixelSize: Theme.font_size_med
 
         anchors.verticalCenter: parent.verticalCenter
 

@@ -45,7 +45,7 @@ Rectangle {
                     text: modelData.icon
                     font.family: Theme.font
 
-                    font.pixelSize: 28
+                    font.pixelSize: Theme.icon_size
                 }
 
                 MouseArea {
