@@ -7,7 +7,6 @@
 {
   home.packages = with pkgs; [
     hypridle # Checks for idling machine
-    hyprlock # Makes machine lockable
 
     # Screenshots
     grim
@@ -29,23 +28,12 @@
     settings = {
       listener = [
         {
-          timeout = 900;
-          on-timeout = "hyprlock";
-        }
-        {
           timeout = 1200;
           on-timeout = "hyprctl dispatch dpms off";
           on-resume = "hyprctl dispatch dpms on";
         }
       ];
     };
-  };
-
-  programs.hyprlock = {
-    enable = true;
-    extraConfig = ''
-      ${builtins.readFile ./hyprland/hyprlock.conf}
-    '';
   };
 
   wayland.windowManager.hyprland = {
@@ -172,12 +160,12 @@
 
       "$mod" = "SUPER";
       exec-once = [
-        # Run lock on system startup
-        "hyprlock"
+        # Allow for pausing system
+        "mpris-proxy"
 
         #
         "hyprctl setcursor Bibata-Modern-Classic 20"
-        "quickshell"
+        "noctalia-shell && sleep 1 && qs -c noctalia-shell ipc call lockScreen lock"
 
         # Start Up Applications that are used everywhere.
         "[workspace 1 silent] zen-beta" # Web-Browser

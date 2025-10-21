@@ -13,6 +13,8 @@ in
   };
 
   imports = [
+    (rootPath + /packages/services/mpris.nix)
+
     ############
     # Packages #
     ############
@@ -45,6 +47,7 @@ in
 
     (rootPath + /packages/shell/helix.nix) # Editor
     (rootPath + /packages/shell/neovim/init.nix) # Editor
+    (rootPath + /packages/shell/kerbin.nix) # Editor
     (rootPath + /packages/shell/starship.nix) # Prompt
     (rootPath + /packages/shell/yazi.nix) # File Explorer
     (rootPath + /packages/shell/zellij.nix) # Multiplexer
@@ -61,7 +64,7 @@ in
 
     (rootPath + /packages/wayland/theme.nix) # Make things pretty
 
-    (rootPath + /packages/wayland/quickshell.nix) # Widgets
+    (rootPath + /packages/wayland/noctalia.nix)
 
     (rootPath + /packages/wayland/ranch.nix) # App Launcher
   ];

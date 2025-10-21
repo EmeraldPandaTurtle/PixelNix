@@ -45,7 +45,7 @@
   programs.nushell = {
     enable = true;
     extraConfig = ''
-      $env.PATH = ($env.PATH | split row esep | prepend /run/wrappers/bin | prepend ~/dotfiles/script-bin)
+      $env.PATH = ($env.PATH | split row esep | prepend /run/wrappers/bin | prepend ~/dotfiles/script-bin | prepend ~/.kerbin/bin/)
 
       $env.FLAKE = "${flake}"
       $env.NH_FLAKE = "${flake}"
