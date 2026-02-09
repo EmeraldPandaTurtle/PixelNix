@@ -13,45 +13,6 @@ in
     "brightonlcox"
   ];
 
-  # Import all files that are needed
-  imports = [
-    ############
-    # Packages #
-    ############
-    # Nixos
-    (rootPath + /packages/nixos/packages.nix) # Misc Required Packages for Nixos to run
-    (rootPath + /packages/nixos/services.nix) # Enable required services
-    (rootPath + /packages/nixos/amd.nix) # GPU
-    (rootPath + /packages/nixos/tlp.nix) # Power Profiles
-    (rootPath + /packages/nixos/nh.nix) # Better nix command
-    (rootPath + /packages/nixos/touchid.nix) # Touch ID
-
-    # Network
-    (import (rootPath + /packages/nixos/network.nix) {
-      hostName = "brighton-laptop";
-    })
-
-    # Docker
-    (import (rootPath + /packages/nixos/docker.nix) {
-      user = "brightonlcox";
-    })
-
-    # Applications
-    (rootPath + /packages/applications/steam.nix) # Gaming
-    (rootPath + /packages/applications/alvr.nix) # VR
-    (rootPath + /packages/applications/bitwarden.nix) # Passwords
-
-    (rootPath + /packages/wayland/hyprland_env.nix)
-    (rootPath + /packages/nixos/udisk.nix) # Auto Mount Drives
-
-    # Font
-    (rootPath + /packages/fonts.nix)
-
-    ./hardware-configuration.nix
-  ];
-
-  services.getty.autologinUser = "brightonlcox";
-
   hardware.keyboard.zsa.enable = true;
 
   security.polkit.enable = true;
@@ -76,6 +37,43 @@ in
   programs.dconf.enable = true;
 
   programs.nix-ld.enable = true;
+
+  # Import all files that are needed
+  imports = [
+    ############
+    # Packages #
+    ############
+    # Nixos
+    (rootPath + /packages/nixos/packages.nix) # Misc Required Packages for Nixos to run
+    (rootPath + /packages/nixos/services.nix) # Enable required services
+    (rootPath + /packages/nixos/amd.nix) # GPU
+    (rootPath + /packages/nixos/tlp.nix) # Power Profiles
+    (rootPath + /packages/nixos/nh.nix) # Better nix command
+    (rootPath + /packages/nixos/touchid.nix) # Touch ID
+
+    # Network
+    (import (rootPath + /packages/nixos/network.nix) {
+      hostName = "brighton-laptop";
+    })
+
+    # Docker
+    (import (rootPath + /packages/nixos/docker.nix) {
+      user = "brightonlcox";
+    })
+
+    # Applications
+    # (rootPath + /packages/applications/steam.nix) # Gaming
+    # (rootPath + /packages/applications/alvr.nix) # VR
+    (rootPath + /packages/applications/bitwarden.nix) # Passwords
+
+    (rootPath + /packages/wayland/niri-os.nix)
+    (rootPath + /packages/nixos/udisk.nix) # Auto Mount Drives
+
+    # Font
+    (rootPath + /packages/fonts.nix)
+
+    ./hardware-configuration.nix
+  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

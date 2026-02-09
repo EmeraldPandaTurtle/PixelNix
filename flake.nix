@@ -14,45 +14,31 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nixos Specific
-    nixpkgs-olympus.url = "github:nixos/nixpkgs/3be662c31b6cc04b10043641f4ccfc97c8a34704";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ranch.url = "github:TheEmeraldBee/ranch";
-    ferrite.url = "github:TheEmeraldBee/ferrite";
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
 
     # Framework 16 stuff
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell";
-    };
   };
   outputs =
     {
       nixpkgs,
       home-manager,
-      nix-darwin,
-      hyprland,
       ...
     }@inputs:
     {

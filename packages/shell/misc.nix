@@ -4,5 +4,7 @@
     asciinema # Shell session recording
 
     playerctl
+
+    omnix
   ];
 }

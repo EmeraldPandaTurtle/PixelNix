@@ -67,25 +67,6 @@
         core-bw ...$args
       }
 
-      try {
-        $env.GEMINI_API_KEY = open ~/.gemini-key
-      } catch {
-        $env.GEMINI_API_KEY = (bw get password gemini-key --raw)
-        $env.GEMINI_API_KEY | save ~/.gemini-key
-      }
-      try {
-        $env.GROQ_API_KEY = open ~/.groq-key
-      } catch {
-        $env.GROQ_API_KEY = (bw get password groq-key --raw)
-        $env.GROQ_API_KEY | save ~/.groq-key
-      }
-      try {
-        $env.RPG_BOT_KEY = open ~/.rpg-bot
-      } catch {
-        $env.RPG_BOT_KEY = (bw get password rpg-bot --raw)
-        $env.RPG_BOT_KEY | save ~/.rpg-bot
-      }
-
       def --env d [...args] {
         let inputs = yazi --chooser-file=/dev/stdout | each {|line| $line} | split row "\n"
 

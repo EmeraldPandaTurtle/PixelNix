@@ -19,7 +19,7 @@
 
     taplo # TOML
 
-    kdePackages.full
+    # kdePackages.full
 
     imagemagick
   ];

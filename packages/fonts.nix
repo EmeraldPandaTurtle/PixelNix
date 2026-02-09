@@ -8,4 +8,9 @@
     nerd-fonts.gohufont
     fira-sans
   ];
+
+  # Cursors
+  environment.systemPackages = with pkgs; [
+    bibata-cursors
+  ];
 }
