@@ -45,13 +45,16 @@ in
     (rootPath + /packages/shell/jujutsu.nix) # Improved Git UX
 
     (rootPath + /packages/shell/neovim/init.nix) # Editor
+    (rootPath + /packages/shell/helix.nix) # Editor
     (rootPath + /packages/shell/starship.nix) # Prompt
     (rootPath + /packages/shell/yazi.nix) # File Explorer
     (rootPath + /packages/shell/zellij.nix) # Multiplexer
     (rootPath + /packages/shell/misc.nix)
+    (rootPath + /packages/shell/ai.nix)
 
     # Windowing
     (rootPath + /packages/wayland/niri.nix)
     (rootPath + /packages/wayland/dms.nix)
+
   ];
 }

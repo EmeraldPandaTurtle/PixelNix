@@ -41,6 +41,12 @@
   }
   {
     mode = "n";
+    key = "<leader>/";
+    action = "<cmd>Telescope live_grep<cr>";
+    options.desc = "Search Project";
+  }
+  {
+    mode = "n";
     key = "gn";
     action = "<cmd>BufferLineCycleNext<cr>";
     options.desc = "Next Buffer";
