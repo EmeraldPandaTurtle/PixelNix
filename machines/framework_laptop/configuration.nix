@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   rootPath = ../../.;
-in
-{
+in {
   # Enable flakes and the `nix` command
   nix.settings.experimental-features = [
     "nix-command"
@@ -27,7 +25,7 @@ in
   # Define User Account
   users.users.brightonlcox = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
     shell = pkgs.nushell;
   };
 
@@ -71,6 +69,7 @@ in
 
     # Font
     (rootPath + /packages/fonts.nix)
+    (rootPath + /packages/theme-os.nix)
 
     ./hardware-configuration.nix
   ];

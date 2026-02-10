@@ -1,8 +1,6 @@
-{ ... }:
-let
+{...}: let
   rootPath = ../../.;
-in
-{
+in {
   news.display = "silent";
 
   # Define Normal Home Modules
@@ -14,6 +12,7 @@ in
 
   imports = [
     (rootPath + /packages/services/mpris.nix)
+    (rootPath + /packages/theme.nix)
 
     ############
     # Packages #
@@ -55,6 +54,5 @@ in
     # Windowing
     (rootPath + /packages/wayland/niri.nix)
     (rootPath + /packages/wayland/dms.nix)
-
   ];
 }

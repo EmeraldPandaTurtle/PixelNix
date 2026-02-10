@@ -5,6 +5,11 @@ line-number = "relative"
 idle-timeout = 100
 jump-label-alphabet = "jfkdls;aurieowpqnvmcxz"
 bufferline = "always"
+end-of-line-diagnostics = "error"
+
+[editor.inline-diagnostics]
+cursor-line = "hint"
+other-lines = "disable"
 
 [editor.cursor-shape]
 insert = "bar"

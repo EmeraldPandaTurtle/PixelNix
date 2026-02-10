@@ -34,67 +34,71 @@
 
     # Framework 16 stuff
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # Theme
+    catppuccin.url = "github:catppuccin/nix";
   };
-  outputs =
-    {
-      nixpkgs,
-      home-manager,
-      ...
-    }@inputs:
-    {
-      nixosConfigurations = {
-        nvidia_pc = nixpkgs.lib.nixosSystem {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./machines/nvidia_pc/configuration.nix
-          ];
+  outputs = {
+    nixpkgs,
+    home-manager,
+    catppuccin,
+    ...
+  } @ inputs: {
+    nixosConfigurations = {
+      nvidia_pc = nixpkgs.lib.nixosSystem {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
         };
-        framework_laptop = nixpkgs.lib.nixosSystem {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
 
-          specialArgs = { inherit inputs; };
-          modules = [
-            inputs.nixos-hardware.nixosModules.framework-16-7040-amd
-            ./machines/framework_laptop/configuration.nix
-          ];
-        };
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./machines/nvidia_pc/configuration.nix
+        ];
       };
-
-      homeConfigurations = {
-        nvidia_pc = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-
-          extraSpecialArgs = { inherit inputs; };
-
-          modules = [
-            inputs.nixvim.homeModules.nixvim
-            ./machines/nvidia_pc/home.nix
-          ];
+      framework_laptop = nixpkgs.lib.nixosSystem {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
         };
-        framework_laptop = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
 
-          extraSpecialArgs = { inherit inputs; };
-
-          modules = [
-            inputs.nixvim.homeModules.nixvim
-            ./machines/framework_laptop/home.nix
-          ];
-        };
+        specialArgs = {inherit inputs;};
+        modules = [
+          catppuccin.nixosModules.catppuccin
+          inputs.nixos-hardware.nixosModules.framework-16-7040-amd
+          ./machines/framework_laptop/configuration.nix
+        ];
       };
     };
+
+    homeConfigurations = {
+      nvidia_pc = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+
+        extraSpecialArgs = {inherit inputs;};
+
+        modules = [
+          inputs.nixvim.homeModules.nixvim
+          ./machines/nvidia_pc/home.nix
+        ];
+      };
+      framework_laptop = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+
+        extraSpecialArgs = {inherit inputs;};
+
+        modules = [
+          inputs.nixvim.homeModules.nixvim
+          catppuccin.homeModules.catppuccin
+          ./machines/framework_laptop/home.nix
+        ];
+      };
+    };
+  };
 }
