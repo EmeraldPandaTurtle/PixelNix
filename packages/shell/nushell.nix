@@ -2,10 +2,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    nushell # Main Shell
-    carapace # Autocompletions
     fzf # Fuzzy Finder
-    zoxide # `cd` replacement
 
     ################
     # REPLACEMENTS #

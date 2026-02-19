@@ -1,11 +1,9 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
-  home.packages = [
-    pkgs.google-chrome
-    pkgs.firefox
-    inputs.zen-browser.packages.${pkgs.system}.default
+{inputs, ...}: {
+  imports = [
+    inputs.zen-browser.homeModules.beta
   ];
+
+  programs.zen-browser = {
+    enable = true;
+  };
 }

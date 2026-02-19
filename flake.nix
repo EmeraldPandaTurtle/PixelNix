@@ -1,5 +1,5 @@
 {
-  description = "Your new nix config";
+  description = "Brighton's NixOS dotfiles";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -29,8 +29,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
 
     # Framework 16 stuff
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -45,17 +50,6 @@
     ...
   } @ inputs: {
     nixosConfigurations = {
-      nvidia_pc = nixpkgs.lib.nixosSystem {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-        };
-
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./machines/nvidia_pc/configuration.nix
-        ];
-      };
       framework_laptop = nixpkgs.lib.nixosSystem {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
@@ -72,19 +66,6 @@
     };
 
     homeConfigurations = {
-      nvidia_pc = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-        };
-
-        extraSpecialArgs = {inherit inputs;};
-
-        modules = [
-          inputs.nixvim.homeModules.nixvim
-          ./machines/nvidia_pc/home.nix
-        ];
-      };
       framework_laptop = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";

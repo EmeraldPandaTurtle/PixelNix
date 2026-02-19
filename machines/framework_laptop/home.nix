@@ -19,17 +19,9 @@ in {
     ############
     # Applications
     (rootPath + /packages/applications/discord.nix) # Chatting
-    # (rootPath + /packages/applications/alacritty.nix) # Terminal
     (rootPath + /packages/applications/ghostty.nix) # Terminal
-    # (rootPath + /packages/applications/kitty.nix) # Terminal
-    # (rootPath + /packages/applications/prismlauncher.nix) # Minecraft
     (rootPath + /packages/applications/feh.nix) # Image Viewer
-    # (rootPath + /packages/applications/pavu.nix) # Audio Control
     (rootPath + /packages/applications/zen.nix) # Browser
-    # (rootPath + /packages/applications/olympus.nix) # Celeste Mods
-    # (rootPath + /packages/applications/obsidian.nix) # Note Taking
-    # (rootPath + /packages/applications/bittorrent.nix) # Torrent
-    # (rootPath + /packages/applications/postman.nix) # HTTP Testing
 
     # Shell
     (import (rootPath + /packages/shell/nushell.nix) {
@@ -45,6 +37,7 @@ in {
 
     (rootPath + /packages/shell/neovim/init.nix) # Editor
     (rootPath + /packages/shell/helix.nix) # Editor
+    (rootPath + /packages/shell/lsp.nix) # Shared language servers
     (rootPath + /packages/shell/starship.nix) # Prompt
     (rootPath + /packages/shell/yazi.nix) # File Explorer
     (rootPath + /packages/shell/zellij.nix) # Multiplexer

@@ -3,10 +3,6 @@
   lib,
   ...
 }: {
-  home.packages = with pkgs; [
-    starship
-  ];
-
   programs.starship.enable = true;
 
   programs.starship.settings = {
@@ -68,15 +64,15 @@
       disabled = false;
       time_format = "%R";
       style = "green";
-      format = "[   $time]($style)";
+      format = "[   $time]($style)";
     };
 
     nix_shell = {
       style = "bold italic dimmed blue";
       symbol = "*";
       format = "[$symbol nix|$state|]($style) [$name](italic dimmed white)";
-      impure_msg = "[  ](bold dimmed red)";
-      pure_msg = "[  ](bold dimmed green)";
+      impure_msg = "[  ](bold dimmed red)";
+      pure_msg = "[  ](bold dimmed green)";
     };
   };
 }

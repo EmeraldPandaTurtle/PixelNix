@@ -1,26 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    ####################
-    # Language Servers #
-    ####################
-    # Nix
-    nil
-    alejandra
-
-    marksman # Markdown
-
-    wgsl-analyzer # WGSL
-
-    # Misc Language Servers
-    vscode-langservers-extracted
-
     typescript-language-server # Typescript
-
-    taplo # TOML
-
-    # kdePackages.full
-
     imagemagick
   ];
 

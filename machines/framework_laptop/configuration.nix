@@ -60,8 +60,6 @@ in {
     })
 
     # Applications
-    # (rootPath + /packages/applications/steam.nix) # Gaming
-    # (rootPath + /packages/applications/alvr.nix) # VR
     (rootPath + /packages/applications/bitwarden.nix) # Passwords
 
     (rootPath + /packages/wayland/niri-os.nix)

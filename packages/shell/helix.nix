@@ -3,32 +3,10 @@
   inputs,
   ...
 }: {
-  home.packages = with pkgs;
-    [
-      ####################
-      # Language Servers #
-      ####################
-      # Nix
-      nil
-      alejandra
-
-      marksman # Markdown
-
-      wgsl-analyzer # WGSL
-
-      # Misc Language Servers
-      vscode-langservers-extracted
-
-      taplo # TOML
-
-      fzf-make
-    ]
-    ++ [
-      ##########
-      # Editor #
-      ##########
-      inputs.helix.packages.${pkgs.system}.default
-    ];
+  home.packages = [
+    inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    pkgs.fzf-make
+  ];
   xdg.configFile."helix" = {
     source = ./helix;
     recursive = true;
