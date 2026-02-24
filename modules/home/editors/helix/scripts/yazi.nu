@@ -21,8 +21,6 @@ def main [operation, current_buffer] {
 
 
   match $operation { 
-    "right" => { zellij run -c -d right -- hx $command_str }
-    "down" => { zellij run -c -d down -- hx $command_str }
     _ => {
         # Set up the string for the actual command.
         let run = ":open " + $command_str

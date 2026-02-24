@@ -21,23 +21,3 @@ language-servers = ["godot"]
 name = "nix"
 auto-format = true
 formatter = { command = "alejandra", args = ["-q"] }
-
-[language-server.runels]
-command = "./target/release/rune"
-args = ["language-server"]
-
-[[language]]
-name = "rune"
-language-servers = ["runels"]
-scope = "source.rune"
-injection-regex = "rune"
-comment-tokens = "//"
-indent = { tab-width = 2, unit = "  " }
-auto-format = true
-roots = ["Rune.toml"]
-file-types = ["rune", "rn"]
-grammar = "rune"
-
-[[grammar]]
-name = "rune"
-source = { git = "https://github.com/zhuhaow/tree-sitter-rune", rev = "91dd6fa73fb14a02c728601ae0a853238625b627" }

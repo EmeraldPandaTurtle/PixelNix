@@ -56,6 +56,7 @@ in {
     (rootPath + /modules/nixos/niri.nix)
     (rootPath + /modules/nixos/udisk.nix)
     (rootPath + /modules/nixos/fonts.nix)
+    (rootPath + /modules/nixos/gaming.nix)
 
     ./hardware-configuration.nix
   ];

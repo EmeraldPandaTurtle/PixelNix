@@ -29,11 +29,51 @@ def launch-session [dir: string] {
   }
 
   cd $dir
+  if (".envrc" | path exists) {
+    direnv allow
+    load-env (direnv export json | from json)
+  }
   $env.ZELLIJ_SESSION = $session
   zellij -n helix -s $session
 }
 
-def main [--project (-p): string, --interactive (-i)] {
+def delete-projects [] {
+  let projects = (load-projects)
+  if ($projects | is-empty) {
+    print "No projects to delete."
+    return
+  }
+
+  let sessions = (zellij list-sessions --no-formatting | lines | each { $in | split row " " | first })
+
+  let picks = ($projects | str join "\n" | fzf --multi --prompt "Delete project: ")
+  if ($picks | str trim | is-empty) { return }
+
+  let selected = ($picks | lines | where { $in | str trim | is-not-empty })
+
+  for project in $selected {
+    let session = ($project | path basename)
+    if $session in $sessions {
+      zellij kill-session $session
+      print $"Killed session: ($session)"
+    }
+    print $"Removed project: ($project)"
+  }
+
+  # Rewrite projects file without deleted entries
+  let remaining = ($projects | where { $in not-in $selected })
+  $remaining | str join "\n" | save -f $PROJECTS_FILE
+}
+
+def main [--interactive (-i) --clean (-c) --delete (-d)] {
+  if $delete {
+    delete-projects
+    return
+  }
+  if $clean {
+    zellij-clean
+    return
+  }
   if $interactive {
     let current = ($env | get -o ZELLIJ_SESSION_NAME | default "")
     let session_lines = (zellij list-sessions --no-formatting | lines | where { $in | str trim | is-not-empty } | where { ($in | split row " " | first) != $current })
@@ -73,21 +113,17 @@ def main [--project (-p): string, --interactive (-i)] {
   }
 
   # Outside zellij — project picker or --project flag
-  let dir = if ($project != null) {
-    $project | path expand
+  let projects = (load-projects)
+  let choices = ($projects | append "[Add current directory]")
+  let pick = ($choices | str join "\n" | fzf --prompt "Project: ")
+  if ($pick | is-empty) {
+    print "No project selected."
+    return
+  }
+  let dir = if $pick == "[Add current directory]" {
+    pwd
   } else {
-    let projects = (load-projects)
-    let choices = ($projects | append "[Add current directory]")
-    let pick = ($choices | str join "\n" | fzf --prompt "Project: ")
-    if ($pick | is-empty) {
-      print "No project selected."
-      return
-    }
-    if $pick == "[Add current directory]" {
-      pwd
-    } else {
-      $pick
-    }
+    $pick
   }
 
   if not ($dir | path exists) {

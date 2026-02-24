@@ -2,19 +2,22 @@ on_force_close "quit"
 theme "catppuccin-mocha"
 pane_frames false
 show_startup_tips false
-session_serialization true
+session_serialization false
 
 keybinds clear-defaults=true {
     normal {
         bind "Alt q" { CloseFocus; }
         bind "Alt Q" { Detach; }
-        bind "Alt n" { NewPane; }
+        bind "Alt n" { NewPane "right"; }
+        bind "Alt N" { NewPane "down"; }
+        bind "Alt S" { NewPane "stacked"; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
         bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
         bind "Alt k" "Alt Up" { MoveFocus "Up"; }
-        bind "Alt =" "Alt +" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
+
+        bind "Alt f" { ToggleFocusFullscreen; }
+        bind "Alt v" { TogglePaneEmbedOrFloating; }
 
         // Resize directional — Alt+Shift+HJKL
         bind "Alt H" { Resize "Left"; }

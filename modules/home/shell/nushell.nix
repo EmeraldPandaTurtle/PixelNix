@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     fzf # Fuzzy Finder
 
@@ -105,6 +104,7 @@
 
       core-hx = "hx";
       hx = "zellij-helix";
+      clean = "zellij-clean";
 
       e = "startup";
 
