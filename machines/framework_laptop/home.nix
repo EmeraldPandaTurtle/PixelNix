@@ -10,42 +10,39 @@ in {
     stateVersion = "24.11";
   };
 
-  imports = [
-    (rootPath + /packages/services/mpris.nix)
-    (rootPath + /packages/theme.nix)
+  # Inlined from packages/services/mpris.nix
+  services.mpris-proxy.enable = true;
 
-    ############
-    # Packages #
-    ############
-    # Applications
-    (rootPath + /packages/applications/discord.nix) # Chatting
-    (rootPath + /packages/applications/ghostty.nix) # Terminal
-    (rootPath + /packages/applications/feh.nix) # Image Viewer
-    (rootPath + /packages/applications/zen.nix) # Browser
+  # Inlined from packages/theme.nix
+  catppuccin.enable = true;
+
+  imports = [
+    # Apps
+    (rootPath + /modules/home/apps/discord.nix)
+    (rootPath + /modules/home/apps/ghostty.nix)
+    (rootPath + /modules/home/apps/feh.nix)
+    (rootPath + /modules/home/apps/zen.nix)
+
+    # Dev
+    (rootPath + /modules/home/dev/ai.nix)
+    (rootPath + /modules/home/dev/direnv.nix)
+    (rootPath + /modules/home/dev/git.nix)
+    (rootPath + /modules/home/dev/jujutsu.nix)
+
+    # Editors
+    (rootPath + /modules/home/editors/helix.nix)
+    (rootPath + /modules/home/editors/lsp.nix)
 
     # Shell
-    (import (rootPath + /packages/shell/nushell.nix) {
-      flake = "framework_laptop";
-    })
+    (rootPath + /modules/home/shell/nushell.nix)
+    (rootPath + /modules/home/shell/wally.nix)
+    (rootPath + /modules/home/shell/starship.nix)
+    (rootPath + /modules/home/shell/yazi.nix)
+    (rootPath + /modules/home/shell/zellij.nix)
+    (rootPath + /modules/home/shell/misc.nix)
 
-    (rootPath + /packages/shell/wally.nix) # ZSA Keyboard
-
-    (rootPath + /packages/shell/direnv.nix) # Auto setup when entering directory
-
-    (rootPath + /packages/shell/git.nix) # VCS
-    (rootPath + /packages/shell/jujutsu.nix) # Improved Git UX
-
-    (rootPath + /packages/shell/neovim/init.nix) # Editor
-    (rootPath + /packages/shell/helix.nix) # Editor
-    (rootPath + /packages/shell/lsp.nix) # Shared language servers
-    (rootPath + /packages/shell/starship.nix) # Prompt
-    (rootPath + /packages/shell/yazi.nix) # File Explorer
-    (rootPath + /packages/shell/zellij.nix) # Multiplexer
-    (rootPath + /packages/shell/misc.nix)
-    (rootPath + /packages/shell/ai.nix)
-
-    # Windowing
-    (rootPath + /packages/wayland/niri.nix)
-    (rootPath + /packages/wayland/dms.nix)
+    # Wayland
+    (rootPath + /modules/home/wayland/niri.nix)
+    (rootPath + /modules/home/wayland/dms.nix)
   ];
 }

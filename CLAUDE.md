@@ -16,40 +16,33 @@ There are no tests or linters configured for this repository.
 
 ## Architecture
 
-This is a **Nix Flakes** dotfiles system managing two NixOS machines with Home Manager. The flake produces both `nixosConfigurations` and `homeConfigurations` for each machine.
+This is a **Nix Flakes** dotfiles system managing one NixOS machine with Home Manager. The flake produces both `nixosConfigurations` and `homeConfigurations`.
 
-### Machines
+### Machine
 
 - **`framework_laptop`** — AMD Framework 16, NixOS 24.11, Niri compositor, Catppuccin theming, TLP power management
-- **`nvidia_pc`** — Desktop with NVIDIA GPU, NixOS 24.05, Hyprland (referenced), Steam/gaming
 
-Machine configs live in `machines/{machine_name}/` with `configuration.nix` (NixOS), `home.nix` (Home Manager), and `hardware-configuration.nix`.
+Machine config lives in `machines/framework_laptop/` with `configuration.nix` (NixOS), `home.nix` (Home Manager), and `hardware-configuration.nix`.
 
-### Module Organization (`packages/`)
+### Module Organization (`modules/`)
 
 Modules are organized by category and imported from machine configs using `rootPath`:
 
-- **`nixos/`** — System-level: GPU drivers (`nvidia.nix`, `amd.nix`), services, networking, Docker, power management
-- **`applications/`** — User apps: terminals (Ghostty, Alacritty), browsers (Zen), Discord (Vesktop), gaming
-- **`shell/`** — Shell tools: Nushell, Helix, Neovim (NixVim), Starship, Zellij, Git, Jujutsu, Yazi
-- **`wayland/`** — Compositor configs: Niri, DankMaterialShell
-- **`services/`** — User services (MPRIS)
-- **`theme.nix` / `theme-os.nix`** — Catppuccin theming for home-manager and NixOS respectively
+- **`nixos/`** — System-level: GPU drivers (`amd.nix`), services, networking, Docker, power management, Bitwarden, fonts
+- **`home/apps/`** — User applications: terminals (Ghostty), browsers (Zen), Discord (Vesktop), image viewer (feh)
+- **`home/dev/`** — Development tools: AI, direnv, Git, Jujutsu
+- **`home/editors/`** — Editors: Helix, Neovim (NixVim), shared LSP configs
+- **`home/shell/`** — Shell tools: Nushell, Starship, Yazi, Zellij, misc CLI tools
+- **`home/wayland/`** — Compositor configs: Niri, DankMaterialShell
 
 ### Key Patterns
-
-**Parameterized modules** use currying for machine-specific values:
-```nix
-(import (rootPath + /packages/nixos/docker.nix) { user = "brightonlcox"; })
-(import (rootPath + /packages/nixos/network.nix) { hostName = "framework_laptop"; })
-```
 
 **Feature toggling** is done by commenting/uncommenting imports in machine config files.
 
 **Complex editor configs** use subdirectories symlinked via `xdg.configFile`:
-- `packages/shell/helix/` — Helix config (config.toml, languages.toml, themes)
-- `packages/shell/neovim/` — NixVim with `plugins/` and `keymaps/` subdirectories
-- `packages/shell/zellij/` — Zellij layouts
+- `modules/home/editors/helix/` — Helix config (config.toml, languages.toml, themes)
+- `modules/home/editors/neovim/` — NixVim with `plugins/` and `keymaps/` subdirectories
+- `modules/home/shell/zellij/` — Zellij layouts
 
 **Flake inputs** are passed to modules via `specialArgs = {inherit inputs;}` and used for packages like Zen Browser, Helix, Niri, and DankMaterialShell.
 

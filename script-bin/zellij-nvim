@@ -1,9 +1,0 @@
-#!/usr/bin/env nu
-
-def main [] {
-  if not ("ZELLIJ_SESSION_NAME" in $env) {
-    nu ~/.config/nvim/scripts/run.nu
-  } else {
-    nvim
-  }
-}

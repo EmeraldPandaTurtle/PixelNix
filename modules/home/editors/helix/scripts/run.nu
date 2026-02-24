@@ -7,11 +7,11 @@ def main [filepath?, session?] {
     _ => $session
   }
 
-  if $filepath == null {
+  if $filepath != null {
     $env.ZELLIJ_OPEN = $filepath
   }
 
   $env.ZELLIJ_SESSION = $session
 
-  zellij -n nvim -s $session
+  zellij -n helix -s $session
 }

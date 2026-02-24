@@ -25,7 +25,7 @@ in {
   # Define User Account
   users.users.brightonlcox = {
     isNormalUser = true;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel"]; # Enable 'sudo' for the user.
     shell = pkgs.nushell;
   };
 
@@ -36,38 +36,26 @@ in {
 
   programs.nix-ld.enable = true;
 
+  # Inlined from packages/nixos/nh.nix
+  programs.nh.enable = true;
+
+  # Inlined from packages/theme-os.nix
+  catppuccin.enable = true;
+
   # Import all files that are needed
   imports = [
-    ############
-    # Packages #
-    ############
-    # Nixos
-    (rootPath + /packages/nixos/packages.nix) # Misc Required Packages for Nixos to run
-    (rootPath + /packages/nixos/services.nix) # Enable required services
-    (rootPath + /packages/nixos/amd.nix) # GPU
-    (rootPath + /packages/nixos/tlp.nix) # Power Profiles
-    (rootPath + /packages/nixos/nh.nix) # Better nix command
-    (rootPath + /packages/nixos/touchid.nix) # Touch ID
-
-    # Network
-    (import (rootPath + /packages/nixos/network.nix) {
-      hostName = "brighton-laptop";
-    })
-
-    # Docker
-    (import (rootPath + /packages/nixos/docker.nix) {
-      user = "brightonlcox";
-    })
-
-    # Applications
-    (rootPath + /packages/applications/bitwarden.nix) # Passwords
-
-    (rootPath + /packages/wayland/niri-os.nix)
-    (rootPath + /packages/nixos/udisk.nix) # Auto Mount Drives
-
-    # Font
-    (rootPath + /packages/fonts.nix)
-    (rootPath + /packages/theme-os.nix)
+    # NixOS modules
+    (rootPath + /modules/nixos/packages.nix)
+    (rootPath + /modules/nixos/services.nix)
+    (rootPath + /modules/nixos/amd.nix)
+    (rootPath + /modules/nixos/tlp.nix)
+    (rootPath + /modules/nixos/touchid.nix)
+    (rootPath + /modules/nixos/network.nix)
+    (rootPath + /modules/nixos/docker.nix)
+    (rootPath + /modules/nixos/bitwarden.nix)
+    (rootPath + /modules/nixos/niri.nix)
+    (rootPath + /modules/nixos/udisk.nix)
+    (rootPath + /modules/nixos/fonts.nix)
 
     ./hardware-configuration.nix
   ];

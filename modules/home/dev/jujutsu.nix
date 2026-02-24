@@ -10,7 +10,7 @@
         log = "all()";
       };
       ui = {
-        editor = "nvim";
+        editor = "hx";
         pager = "bat --decorations never";
         default-command = "status";
       };

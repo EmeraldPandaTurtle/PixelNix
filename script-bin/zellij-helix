@@ -1,9 +1,99 @@
 #!/usr/bin/env nu
 
-def main [] {
-  if not ("ZELLIJ_SESSION_NAME" in $env) {
-    nu ~/.config/helix/scripts/run.nu
-  } else {
-    hx
+let PROJECTS_FILE = ($env.HOME | path join ".zellij-projects")
+
+def save-project [dir: string]: nothing -> nothing {
+  if not ($PROJECTS_FILE | path exists) {
+    $dir | save $PROJECTS_FILE
+    return
   }
+  let lines = (open $PROJECTS_FILE | lines | where { $in | str trim | is-not-empty })
+  if ($dir not-in $lines) {
+    $"\n($dir)" | save --append $PROJECTS_FILE
+  }
+}
+
+def load-projects []: nothing -> list<string> {
+  if not ($PROJECTS_FILE | path exists) { return [] }
+  open $PROJECTS_FILE | lines | where { $in | str trim | is-not-empty }
+}
+
+def launch-session [dir: string] {
+  save-project $dir
+  let session = ($dir | path basename)
+
+  let sessions = (zellij list-sessions --no-formatting | lines | each { $in | split row " " | first })
+  if ($session in $sessions) {
+    zellij attach $session
+    return
+  }
+
+  cd $dir
+  $env.ZELLIJ_SESSION = $session
+  zellij -n helix -s $session
+}
+
+def main [--project (-p): string, --interactive (-i)] {
+  if $interactive {
+    let current = ($env | get -o ZELLIJ_SESSION_NAME | default "")
+    let session_lines = (zellij list-sessions --no-formatting | lines | where { $in | str trim | is-not-empty } | where { ($in | split row " " | first) != $current })
+    let session_names = ($session_lines | each { $in | split row " " | first })
+    let projects = (load-projects)
+
+    # Projects annotated with [active] if session exists
+    let project_entries = ($projects | each { |p|
+      if ($p | path basename) in $session_names { $"($p) [active]" } else { $p }
+    })
+
+    # Sessions that don't match any project basename
+    let project_basenames = ($projects | each { $in | path basename })
+    let extra_sessions = ($session_names | where { $in not-in $project_basenames } | each { $"($in) [session]" })
+
+    let all = ($project_entries | append $extra_sessions | append "[Add current directory]")
+    let pick = ($all | str join "\n" | fzf --prompt "Project: ")
+    if ($pick | str trim | is-empty) { return }
+
+    if $pick == "[Add current directory]" {
+      launch-session (pwd)
+    } else if ($pick | str ends-with " [active]") {
+      let dir = ($pick | str replace " [active]" "")
+      launch-session $dir
+    } else if ($pick | str ends-with " [session]") {
+      let name = ($pick | str replace " [session]" "")
+      zellij attach $name
+    } else {
+      launch-session $pick
+    }
+    return
+  }
+
+  if ("ZELLIJ_SESSION_NAME" in $env) {
+    hx
+    return
+  }
+
+  # Outside zellij — project picker or --project flag
+  let dir = if ($project != null) {
+    $project | path expand
+  } else {
+    let projects = (load-projects)
+    let choices = ($projects | append "[Add current directory]")
+    let pick = ($choices | str join "\n" | fzf --prompt "Project: ")
+    if ($pick | is-empty) {
+      print "No project selected."
+      return
+    }
+    if $pick == "[Add current directory]" {
+      pwd
+    } else {
+      $pick
+    }
+  }
+
+  if not ($dir | path exists) {
+    print $"Directory ($dir) does not exist."
+    return
+  }
+
+  launch-session $dir
 }

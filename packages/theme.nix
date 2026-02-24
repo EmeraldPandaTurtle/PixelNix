@@ -1,3 +1,0 @@
-{...}: {
-  catppuccin.enable = true;
-}

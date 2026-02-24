@@ -1,0 +1,22 @@
+#!/usr/bin/env nu
+
+let raw = (zellij list-sessions --no-formatting | lines | where { $in | str trim | is-not-empty })
+if ($raw | is-empty) {
+  print "No zellij sessions found."
+  return
+}
+
+let picks = ($raw | str join "\n" | fzf --multi --prompt "Remove sessions: ")
+if ($picks | str trim | is-empty) {
+  return
+}
+
+for pick in ($picks | lines) {
+  let name = ($pick | split row " " | first)
+  if ($pick | str contains "EXITED") {
+    zellij delete-session $name
+  } else {
+    zellij kill-session $name
+  }
+  print $"Removed: ($name)"
+}

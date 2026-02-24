@@ -2,11 +2,12 @@ on_force_close "quit"
 theme "catppuccin-mocha"
 pane_frames false
 show_startup_tips false
-session_serialization false
+session_serialization true
 
 keybinds clear-defaults=true {
     normal {
         bind "Alt q" { CloseFocus; }
+        bind "Alt Q" { Detach; }
         bind "Alt n" { NewPane; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
         bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
@@ -14,5 +15,17 @@ keybinds clear-defaults=true {
         bind "Alt k" "Alt Up" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
+
+        // Resize directional — Alt+Shift+HJKL
+        bind "Alt H" { Resize "Left"; }
+        bind "Alt J" { Resize "Down"; }
+        bind "Alt K" { Resize "Up"; }
+        bind "Alt L" { Resize "Right"; }
+
+        // Move (swap) panes — Ctrl+Alt+HJKL
+        bind "Ctrl Alt h" { MovePane "Left"; }
+        bind "Ctrl Alt j" { MovePane "Down"; }
+        bind "Ctrl Alt k" { MovePane "Up"; }
+        bind "Ctrl Alt l" { MovePane "Right"; }
     }
 }

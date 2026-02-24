@@ -1,5 +1,4 @@
-{ flake, ... }:
-{ pkgs, ... }:
+{pkgs, ...}:
 {
   home.packages = with pkgs; [
     fzf # Fuzzy Finder
@@ -44,8 +43,8 @@
     extraConfig = ''
       $env.PATH = ($env.PATH | split row esep | prepend /run/wrappers/bin | prepend ~/dotfiles/script-bin | prepend ~/.kerbin/bin/)
 
-      $env.FLAKE = "${flake}"
-      $env.NH_FLAKE = "${flake}"
+      $env.FLAKE = "framework_laptop"
+      $env.NH_FLAKE = "framework_laptop"
 
       let carapace_completer = {|spans|
         carapace $spans.0 nushell $spans | from json
@@ -86,7 +85,7 @@
         dbus-run-session Hyprland
       }
 
-      $env.EDITOR = "zellij-nvim"
+      $env.EDITOR = "zellij-helix"
 
       def jm [branch, ...args] {
         jj bookmark move $branch --to @ ...$args
@@ -106,9 +105,6 @@
 
       core-hx = "hx";
       hx = "zellij-helix";
-
-      core-nvim = "nvim";
-      nvim = "zellij-nvim";
 
       e = "startup";
 
