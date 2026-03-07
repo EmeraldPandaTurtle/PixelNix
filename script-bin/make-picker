@@ -1,0 +1,29 @@
+#!/usr/bin/env nu
+
+const last = "/tmp/last_make"
+
+def main [name?: string, --repeat (-r)] {
+  if $name != null {
+    make $name
+    return
+  }
+  if $repeat {
+    mut data: string = ""
+    try { $data = open $last }
+
+    if data != null {
+      make $data
+      return
+    } else {
+      print "No last run make-target. Pick one"
+    }
+  }
+  let targets = make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}' | lines | where {|x| $x != "Makefile"}
+  let target = $targets | str join "\n" | fzf --border=rounded --min-height=8 --height=25%
+  if target == null {
+    return
+  }
+
+  $target | save -f $last
+  make $target
+}

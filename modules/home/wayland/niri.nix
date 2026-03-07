@@ -1,9 +1,18 @@
-{inputs, ...}: {
+{inputs, pkgs, ...}: {
   imports = [
     inputs.niri.homeModules.niri
   ];
 
   programs.niri.settings = {
+    # Render on the dGPU (Navi 33 / RX 7700S)
+    debug.render-drm-device = "/dev/dri/by-path/pci-0000:03:00.0-render";
+
+    environment."DISPLAY" = ":0";
+
+    spawn-at-startup = [
+      {command = ["${pkgs.xwayland-satellite}/bin/xwayland-satellite"];}
+    ];
+
     outputs."eDP-1" = {};
     outputs."DP-4" = {
       scale = 1.5;

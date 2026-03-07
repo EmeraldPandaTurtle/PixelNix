@@ -104,12 +104,9 @@
 
       core-hx = "hx";
       hx = "zellij-helix";
-      clean = "zellij-clean";
 
-      e = "startup";
-
-      # Rust
-      bc = "bacon clippy";
+      m = "make-picker";
+      mr = "make-picker -r";
 
       # OS Stuff
       cd = "z";

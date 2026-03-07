@@ -25,7 +25,10 @@ in {
   # Define User Account
   users.users.brightonlcox = {
     isNormalUser = true;
-    extraGroups = ["wheel"]; # Enable 'sudo' for the user.
+    extraGroups = [
+      "wheel"
+      "greeter"
+    ];
     shell = pkgs.nushell;
   };
 
